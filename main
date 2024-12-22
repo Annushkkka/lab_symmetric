@@ -1,0 +1,42 @@
+import random
+import string
+
+import cipher
+
+
+def _main():
+    text = 'Одиннадцать лет жизни я отдал изучению алхимии. Уже одна возможность превращать металл в золото или открыть ' \
+           'Эликсир Бессмертия слишком соблазнительна для всякого, кто делает первые шаги в магии. Признаюсь, что Эликсир ' \
+           'произвел на меня впечатление более сильное, ибо до тех пор, пока я не осознал и не прочувствовал существования ' \
+           'Бога, мысль о том, что когда-нибудь все кончится навсегда, казалась мне непереносимой. Так что, узнав о возможности ' \
+           'создать некую жидкость, способную на многие-многие годы продлить наше земное бытие, я решил всецело посвятить себя изготовлению этого эликсира.'
+    caesar_test(text)
+    vigenere_test(text)
+
+
+def caesar_test(text):
+    print('--- Тестирование Шифра Цезаря ---')
+    key = random.randint(1, 100)
+    caesar = cipher.Caesar(key)
+    encrypted = caesar.encrypt(text)
+    print('Ключ:', key)
+    print('Шифр:', encrypted)
+    print('Расшифровка:', caesar.decrypt(encrypted))
+    print('Взлом:', cipher.Caesar.hack(encrypted))
+
+
+def vigenere_test(text):
+    print('--- Тестирование Шифра Вижинера ---')
+    key = ''.join([
+        random.choice(string.ascii_letters)
+        for _ in range(random.randint(1, 10))
+    ])
+    vigenere = cipher.Vigenere(key)
+    encrypted = vigenere.encrypt(text)
+    print('Ключ:', key)
+    print('Шифр:', encrypted)
+    print('Расшифровка:', vigenere.decrypt(encrypted))
+
+
+if __name__ == '__main__':
+    _main()
